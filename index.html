@@ -5,33 +5,39 @@
 <title>爱心温馨提示</title>
 <style>
 body{margin:0;height:100vh;overflow:hidden;background:#111;}
-.tip{position:absolute;padding:4px 12px;border-radius:6px;font:14px/1.5 "微软雅黑";white-space:nowrap;animation:fade 3s forwards;}
-@keyframes fade{0%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
+.tip{position:absolute;padding:6px 14px;border-radius:8px;font:16px/1.5 "微软雅黑";white-space:nowrap;animation:fade 3.5s forwards;}
+@keyframes fade{0%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.5)}}
 </style>
 </head>
 <body>
 <script>
-function hx(t,s=8){return s*16*Math.sin(t)**3;}
-function hy(t,s=8){return -s*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));}
+function hx(t,s=12){return s*16*Math.sin(t)**3;}   // 放大系数 12
+function hy(t,s=12){return -s*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));}
 const tips=["多喝水哦~","保持微笑呀","每天都要元气满满","记得吃水果","保持好心情","好好爱自己","我想你了","梦想成真","期待下一次见面","金榜题名","顺顺利利","早点休息","愿所有烦恼都消失","别熬夜","今天过得开心嘛","天冷了，多穿衣服"];
 const colors=["lightpink","skyblue","lightgreen","lavender","lightyellow","plum","coral","bisque","aquamarine","mistyrose","honeydew","lavenderblush","oldlace"];
-const cx=innerWidth/2, cy=innerHeight/2;
-let idx=0;
-for(let i=0;i<628;i+=8){
-  const t=i/100;
-  const x=cx+hx(t);
-  const y=cy+hy(t);
-  setTimeout(()=>{
-    const d=document.createElement('div');
-    d.className='tip';
-    d.textContent=tips[Math.floor(Math.random()*tips.length)];
-    d.style.left=x+'px'; d.style.top=y+'px';
-    d.style.background=colors[Math.floor(Math.random()*colors.length)];
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),3000);
-  },idx++*50);
+
+function heartRain(){
+  const cx=innerWidth/2, cy=innerHeight/2;
+  let idx=0;
+  for(let i=0;i<628;i+=12){          // 步长 12，密度适中
+    const t=i/100;
+    const x=cx+hx(t);
+    const y=cy+hy(t);
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='tip';
+      d.textContent=tips[Math.floor(Math.random()*tips.length)];
+      d.style.left=x+'px'; d.style.top=y+'px';
+      d.style.background=colors[Math.floor(Math.random()*colors.length)];
+      document.body.appendChild(d);
+      setTimeout(()=>d.remove(),3500);
+    },idx++*60);
+  }
+  setTimeout(heartRain,4000);   // 4 秒后下一轮
 }
+heartRain();
 </script>
 </body>
 </html>
+
 
